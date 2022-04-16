@@ -1,20 +1,75 @@
-//Sprite drawing order
-//new sprite are drawn on top of old ones
-//click to sort the sprites depth according to their y coordinates
+let gameState = 'title';
 
 function setup() {
   createCanvas(800, 400);
+
 }
 
 function draw() {
   background(204, 166, 106);
 
-  //every 10 frames
+
+   switch (gameState) {
+
+     case 'title':
+       titleScreen();
+       break;
+     case 'play':
+       playScreen();
+       break;
+     case 'gameover':
+       endScreen();
+       break;
+   }
+ }
+
+function keyReleased() {
+if (gameState === 'title' || gameState === 'gameover') {
+  if (key === ' ' || key === ' ' ) {
+    gameState = 'play';
+  }
+} else if (gameState === 'play') {
+  if (key === ' ' || key === ' ' ){
+  }
+}
+}
+
+function titleScreen() {
+background(204, 166, 106);
+stroke(255);
+fill(207, 14, 14);
+textSize(100);
+textAlign(CENTER);
+text('Pimple Popper', width*0.5, height*0.33);
+textSize(25);
+text('Pop all the pimples before they CONSUME YOU', width*0.5, height*0.66);
+fill(255);
+textSize(25);
+text('Press the space bar to start', width*0.5, height*.800);
+}
+
+
+function playScreen() {
+background(204, 166, 106);
+
+//face
+fill(255);
+ellipse(250, 150, 45, 45);
+ellipse(650, 150, 45, 45);
+
+fill(0);
+ellipse(450, 300, 100, 10)
+
+
+ellipse(250, 150, 35, 35);
+ellipse(650, 150, 35, 35);
+fill(255);
+//end of face code
+
   if(frameCount%10 == 0) {
 
-    //create a sprite in a random position
+
     var newSprite = createSprite(random(0, width), random(0, height));
-    //assign a random appearance
     var rnd = floor(random(0, 4));
 
     if(rnd == 0)
@@ -26,30 +81,30 @@ function draw() {
     if(rnd == 3)
       newSprite.addAnimation('img', 'assets/pimple.png');
 
-    //set a lifespan to avoid consuming all the memory
-    newSprite.life = 1000;
+
+    //newSprite.life = 1000;
   }
 
-  //the newest sprites are drawn on the top
+
   drawSprites();
 
-  face();
+//this code is temporary cannot figure out how to link amount of sprites to gameover
+  if (mouseX > (width/2)-20 && mouseX < (width/2)+20) {
+    if (mouseY > (height/2)-20 && mouseY < (height/2)+20) {
+      gameState = 'gameover';
+    }
+  }
+
 }
 
 
-function face(){
-  fill(255);
-  ellipse(250, 150, 45, 45);
-  ellipse(650, 150, 45, 45);
-
-fill(0);
-  ellipse(450, 300, 100, 10)
-
-
-ellipse(250, 150, 35, 35);
-ellipse(650, 150, 35, 35);
-
-//fill(212, 15, 15)
-//ellipse(random(0, width), random(0, height), 55, 55);
-
+function endScreen() {
+  background(204, 166, 106);
+  stroke(255);
+  fill(207, 14, 14);
+  textSize(40);
+  textAlign(CENTER);
+  text('YOU WERE CONSUMED', width*0.5, height*0.33);
+  textSize(20);
+  text('Press the space bar to try again', width*0.5, height*0.66);
 }

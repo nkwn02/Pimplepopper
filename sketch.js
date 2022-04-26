@@ -7,7 +7,7 @@ let eye2IMG;
 
 var newPimple;
 
-let pimpleCount;
+let pimpleCount = 0;
 
 function preload() {
   pstartImg = loadImage('assets/startpimple.png');
@@ -114,7 +114,7 @@ function playScreen() {
 
     //newSprite.life = 1000;
   }
-  if (pimpleCount > 20) {
+  if (pimpleCount > 45) {
     gameState = 'gameover';
   }
   drawSprites();

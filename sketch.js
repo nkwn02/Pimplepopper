@@ -9,6 +9,8 @@ var newPimple;
 
 let pimpleCount = 0;
 
+var link;
+
 function preload() {
   pstartImg = loadImage('assets/startpimple.png');
   pplogo1Img = loadImage('assets/pplogo1.png');
@@ -20,6 +22,11 @@ function preload() {
 
 function setup() {
   createCanvas(800, 400);
+
+
+
+  //link = createA('https://www.amazon.com/stores/CeraVe/CeraVe/page/0CA2A9B7-7695-43AF-98D9-FB55761E0796', 'CeraVe', '_blank');
+//link.position(width * 0.5, height * 0.50);
 
 }
 
@@ -45,11 +52,13 @@ function keyReleased() {
   if (gameState === 'title' || gameState === 'gameover') {
     if (key === ' ' || key === ' ') {
       gameState = 'play';
+      pimpleCount = 20;
     }
   } else if (gameState === 'play') {
     if (key === ' ' || key === ' ') {}
   }
 }
+
 
 function titleScreen() {
   background(214, 157, 108);
@@ -62,10 +71,11 @@ function titleScreen() {
   fill(255);
   textSize(25);
   text('Press the space bar to start', width * 0.5, height * .800);
-  //image(pstartImg, 375, 280);
+
 
   image(pplogo1Img, 55, 45);
   image(pplogo2Img, 440, 45);
+
 }
 
 
@@ -101,71 +111,38 @@ function playScreen() {
     pimpleCount++;
     console.log(pimpleCount);
   }
-    for (var i = 0; i < allSprites.length; i++) {
-      var mySprite = allSprites[i];
-      if (mouseX > mySprite.position.x-30 && mouseX < mySprite.position.x+30) {
-        if (mouseY > mySprite.position.y-30 && mouseY < mySprite.position.y+30) {
-          mySprite.remove();
-          pimpleCount--;
-        }
+  for (var i = 0; i < allSprites.length; i++) {
+    var mySprite = allSprites[i];
+    if (mouseX > mySprite.position.x - 30 && mouseX < mySprite.position.x + 30) {
+      if (mouseY > mySprite.position.y - 30 && mouseY < mySprite.position.y + 30) {
+        mySprite.remove();
+        pimpleCount--;
+      }
     }
 
 
 
     //newSprite.life = 1000;
   }
-  if (pimpleCount > 45) {
+  if (pimpleCount > 40) {
     gameState = 'gameover';
   }
   drawSprites();
 }
 
-  function mousePressed() {
+function mousePressed() {
 
-    for (var i = 0; i < allSprites.length; i++) {
+  for (var i = 0; i < allSprites.length; i++) {
 
-      if (mouseX > allSprites[i].position.x-30 && mouseX < allSprites[i].position.x+30) {
-        if (mouseY > allSprites[i].position.y-30 && mouseY < allSprites[i].position.y+30) {
-          allSprites[i].remove();
-          pimpleCount--;
-        }
-
-        //sprites on the bottom will be drawn first
-        //allSprites[i].depth = allSprites[i].position.y;
-
-        //you can link the scale to the y position to simulate perspective
-        //allSprites[i].scale = map(allSprites[i].position.y, 0, height, 0.2, 1);
-      }
-
+    if (mouseX > allSprites[i].position.x - 30 && mouseX < allSprites[i].position.x + 30) {
+      if (mouseY > allSprites[i].position.y - 30 && mouseY < allSprites[i].position.y + 30) {
+        allSprites[i].remove();
+        pimpleCount--;
     }
+    }
+ }
 
-
-
-  }
-
-  //newSprite.life = 1000;
-
-
-
-
-
-//this code is temporary cannot figure out how to link amount of sprites to gameover
-//if (mouseX > (width/2)-20 && mouseX < (width/2)+20) {
-//if (mouseY > (height/2)-20 && mouseY < (height/2)+20) {
-//gameState = 'gameover';
-//}
-//}
-
-//pop pimple to start (test)
-//function mousePressed(){
-//if (mouseX > 1 && mouseX < 800){
-//if (mouseY > 1 && mouseY < 400) {
-//gameState = 'gameover';
-//}
-//}
-//}
-
-//}
+}
 
 
 function endScreen() {
